@@ -15,49 +15,7 @@
 <main>
 <nav><a href="/">Главная</a> <a href="/blog.html">Блог</a> <a href="/projects.html">Мои проекты</a></nav>
 <section></section>
-<b>VPN или как открыть порты.</b><br>
-<p>
-Допустим у нас есть домашний сервер и роутер за NAT и нужно открыть порты.<br>
-Покупаем дешёвый VDS сервер  (Например 
-FIRSTBYTE тариф MSK-KVM-SSD-START на год 660RUB, промокод refer_105553)<br>
-Выбираем ос DEBIAN и после оплаты сервера подключаемся к нему по SSH и пишем следующее:<br>
-<code>apt-get update -y && wget https://raw.githubusercontent.com/angristan/openvpn-install/master/openvpn-install.sh && chmod +x openvpn-install.sh && ./openvpn-install.sh</code>
-<br>дальше просто жмём enter<br>
-<img src="/blog/image.png"><br>
-пишем любое имя например vpn<br>
-<img src="/blog/image-1.png"><br>
-1)<br>
-у нас создался файл vpn.ovpn скачиваем программу openvpn connect и импортируем наш файл, подключаемся к впн и находим там YOUR PRIVATE IP см скрин ниже<br>
-<img src="/blog/image-2.png"><br>
-у меня это 10.8.0.3<br>
-на сервере:<br>
-<code>
-apt install net-tools -y
-ifconfig eth0 mtu 1372
-iptables -t nat -A PREROUTING -p tcp -d АЙПИ VDS --dport 80 -j DNAT --to-destination 10.8.0.3:ПОРТ
-iptables -A FORWARD -i eth0 -d 10.8.0.3 -p tcp --dport 80 -j ACCEPT
-</code>
-(eth0 замените на своё, чтобы узнать какое у вас имя сетевого интерфейса напишите ifconfig и там где написано inet должен быть айпи адрес вашего сервера 
-<img src="/blog/image-3.png">
-)<br>
-после этого порт открыт<br> 
-<img src="/blog/image-4.png"><br>
-Допустим вы ещё хотите открыть порты на виртуальной машине (У меня это VIRTUALBOX)<br>
-Выключаем вм (если запущена) и переходим в Настроить > сеть<br>
-<img src="/blog/image-5.png"><br>
-<img src="/blog/vpn-ili-kak-otkryt-porty.png"><br>
-прброс портов, <br>
-<img src="/blog/image-6.png">
-<br>
-адрес хоста пишем ip клиента опенвпн 10.8.0.X порт хоста, порт который мы открыли, чтобы узнать адрес гостя включаем вм открываем cmd и пишем ipconfig перед этим установив драйвера если сетевой адаптер вдруг не определился. порт гостя порт который ранее был открыт
-<br>
-<img src="/blog/image-7.png">
-<br>
-OK > OK<br>
-<img src="/blog/image-8.png"><br>
-на этом всё.
-</p>
-</main> 
+<b><a href="/blog/1.html">VPN или как открыть порты.</a></b>
 <section></section>
 <footer> Copyright &copy;&nbsp;2020-2023&nbsp;Кирилл Заволожин. Все права не защищены.</footer> 
 <script>document.addEventListener("DOMContentLoaded",(function(){var e,t=document.querySelector("#cursor"),n=!1;t&&(document.body.classList.add("m-cursor"),document.addEventListener("mousemove",(function(e){n||(document.body.classList.add("m-cursor"),t.classList.remove("m-hidden"),t.style.transform="translate(".concat(e.clientX,"px,").concat(e.clientY,"px)"))})),document.querySelector('html').addEventListener("mouseleave",(function(){document.body.classList.remove("m-cursor")})),document.body.addEventListener("touchstart",(function(o){t.classList.add("m-hidden"),clearTimeout(e),n=!0,e=setTimeout((function(){n=!1}),500)})))}));</script><script>document.querySelectorAll('[href^="#"]').forEach(anchor => {anchor.addEventListener('click', (e) => {e.preventDefault();const y = document.querySelector(anchor.getAttribute('href')).getBoundingClientRect().top + window.scrollY;window.scroll({top: y,behavior: 'smooth'});});});</script><script>let c=0, c42=document.querySelector('#c42'), word=[52, 50], press=0; c42.addEventListener('click', (e)=>{c++; if (c===42){lifeDontTalkToMeAboutLife();}}); document.addEventListener('keyup', dontPanic); function dontPanic(e){code=(e.keyCode ? e.keyCode : e.which); if (code===100) code=52; if (code===98) code=50; if (code==word[press] && press < word.length - 1) press++; else if (code==word[press] && press==word.length - 1){lifeDontTalkToMeAboutLife(); document.removeEventListener('keyup', dontPanic);}else{press=0;}}function lifeDontTalkToMeAboutLife(){c42.innerHTML=`<span></span>
