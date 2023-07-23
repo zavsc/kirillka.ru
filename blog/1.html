@@ -36,9 +36,8 @@ ifconfig eth0 mtu 1372
 iptables -t nat -A PREROUTING -p tcp -d АЙПИ VDS --dport 80 -j DNAT --to-destination 10.8.0.3:ПОРТ
 iptables -A FORWARD -i eth0 -d 10.8.0.3 -p tcp --dport 80 -j ACCEPT
 </code>
-(eth0 замените на своё, чтобы узнать какое у вас имя сетевого интерфейса напишите ifconfig и там где написано inet должен быть айпи адрес вашего сервера 
-<img src="/blog/image-3.png">
-)<br>
+(eth0 замените на своё, чтобы узнать какое у вас имя сетевого интерфейса напишите ifconfig и там где написано inet должен быть айпи адрес вашего сервера)<br>
+<img src="/blog/image-3.png"><br>
 после этого порт открыт<br> 
 <img src="/blog/image-4.png"><br>
 Допустим вы ещё хотите открыть порты на виртуальной машине (У меня это VIRTUALBOX)<br>
