@@ -15,8 +15,57 @@
 <main>
 <nav><a href="/">Главная</a> <a href="/blog.html">Блог</a> <a href="/projects.html">Мои проекты</a></nav>
 <section></section>
-<b>Записи потерялись</b><br>
-<p>На хостинге котором раньше был блог сломалась панель, а бекапа у меня нет к сожалению.</p>
+<b>VPN или как открыть порты.</b><br>
+<p>
+Допустим у нас есть домашний сервер и роутер за NAT и нужно открыть порты.<br>
+Покупаем дешёвый VDS сервер  (Например 
+FIRSTBYTE тариф MSK-KVM-SSD-START на год 660RUB, промокод refer_105553)<br>
+Выбираем ос DEBIAN и после оплаты сервера подключаемся к нему по SSH и пишем следующее:<br>
+<code>apt-get update -y && wget https://raw.githubusercontent.com/angristan/openvpn-install/master/openvpn-install.sh && chmod +x openvpn-install.sh && ./openvpn-install.sh</code> дальше просто жмём enter
+image.png
+пишем любое имя например vpn<br>
+
+image-1.png
+1)<br>
+у нас создался файл vpn.ovpn скачиваем программу openvpn connect и импортируем наш файл, подключаемся к впн и находим там YOUR PRIVATE IP см скрин ниже<br>
+
+
+image-2.png<br>
+у меня это 10.8.0.3<br>
+на сервере:<br>
+<code>
+apt install net-tools -y
+ifconfig eth0 mtu 1372
+iptables -t nat -A PREROUTING -p tcp -d АЙПИ VDS --dport 80 -j DNAT --to-destination 10.8.0.3:ПОРТ
+iptables -A FORWARD -i eth0 -d 10.8.0.3 -p tcp --dport 80 -j ACCEPT
+</code>
+(eth0 замените на своё, чтобы узнать какое у вас имя сетевого интерфейса напишите ifconfig и там где написано inet должен быть айпи адрес вашего сервера 
+image-3.png 
+)<br>
+
+после этого порт открыт<br> 
+image-4.png
+Допустим вы ещё хотите открыть порты на виртуальной машине (У меня это VIRTUALBOX)<br>
+Выключаем вм (если запущена) и переходим в Настроить > сеть<br>
+
+
+image-5.png<br>
+
+
+vpn-ili-kak-otkryt-porty.png
+прброс портов, 
+
+image-6.png
+адрес хоста пишем ip клиента опенвпн 10.8.0.X порт хоста, порт который мы открыли, чтобы узнать адрес гостя включаем вм открываем cmd и пишем ipconfig перед этим установив драйвера если сетевой адаптер вдруг не определился. порт гостя порт который ранее был открыт
+<br>
+image-7.png
+  <br>
+OK > OK
+
+image-8.png<br>
+
+на этом всё.
+</p>
 </main> 
 <section></section>
 <footer> Copyright &copy;&nbsp;2020-2023&nbsp;Кирилл Заволожин. Все права не защищены.</footer> 
