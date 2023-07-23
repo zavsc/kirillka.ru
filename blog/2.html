@@ -24,85 +24,9 @@
 <code>apt install icecast2 -y</code><br>
 Начинаем править конфиг:<br>
 <code>nano /etc/icecast2/icecast.xml</code><br>
-Всё стираем и вставляем этот код:<br>
+Всё стираем и вставляем код от сюда <a href="/code">КОД</a><br>
 <b>везде меняем hackme на свой пароль!</b><br>
 ctrl + \ <code>hackme</code> enter + A<br>
-<code><br>
-<icecast>
-    <location>Earth</location>
-    <admin>icemaster@localhost</admin>
-    <bind-address>localhost</bind-address>
-    
-    <mount>
-        <mount-name>/fm</mount-name>
-        <password>hackme</password>
-        <charset>UTF-8</charset>
-        <hidden>0</hidden>
-        <public>0</public>
-        <fallback-mount>/auto-dj</fallback-mount>
-        <fallback-override>1</fallback-override>
-        <fallback-when-full>1</fallback-when-full>
-    </mount>
-
-    <mount>
-        <mount-name>/auto-dj</mount-name>
-        <password>hackme</password>
-        <hidden>1</hidden>
-        <public>0</public>
-    </mount>
-
-    <limits>
-        <clients>100</clients>
-        <sources>2</sources>
-        <queue-size>524288</queue-size>
-        <client-timeout>30</client-timeout>
-        <header-timeout>15</header-timeout>
-        <source-timeout>10</source-timeout>
-        <burst-on-connect>1</burst-on-connect>
-        <burst-size>65535</burst-size>
-    </limits>
-
-    <authentication>
-        <source-password>hackme</source-password>
-        <relay-password>hackme</relay-password>
-
-        <admin-user>hackme</admin-user>
-        <admin-password>hackme</admin-password>
-    </authentication>
-
-    <hostname>localhost</hostname>
-
-    <listen-socket>
-        <port>8000</port>
-    </listen-socket>
-
-    <http-headers>
-        <header name="Access-Control-Allow-Origin" value="*" />
-    </http-headers>
-
-    <fileserve>1</fileserve>
-
-    <paths>
-        <basedir>/usr/share/icecast2</basedir>
-
-        <logdir>/var/log/icecast2</logdir>
-        <webroot>/usr/share/icecast2/web</webroot>
-        <hackmeroot>/usr/share/icecast2/hackme</hackmeroot>
-        <alias source="/" destination="/status.xsl"/>
-    </paths>
-
-    <logging>
-        <accesslog>access.log</accesslog>
-        <errorlog>error.log</errorlog>
-        <loglevel>3</loglevel>
-        <logsize>10000</logsize>
-    </logging>
-
-    <security>
-        <chroot>0</chroot>
-    </security>
-</icecast>
-</code>
 <br>
 ctrl + x + y + enter<br>
 <code>systemctl enable icecast2 && systemctl start icecast2</code><br>
