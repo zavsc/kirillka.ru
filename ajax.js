@@ -1,5 +1,5 @@
 (function($) {
 $(function() {
-  $("#blockajax").load("http://notify.kirillka.ru/status.php");
+  $("#status").load("http://notify.kirillka.ru/status.php");
 })
 })(jQuery)
